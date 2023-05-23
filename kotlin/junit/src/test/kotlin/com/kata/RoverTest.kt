@@ -128,4 +128,60 @@ class RoverTest {
         val movedRover = aRover.receivedCommand(Command.BACKWARDS).receivedCommand(Command.BACKWARDS)
         assertEquals(movedRover.position, Position(2,0))
     }
+
+    @Test
+    fun aRoverFacingNorthShouldFaceEastWhenRotatingRight() {
+        val aRover = Rover(direction = Direction.NORTH)
+        val movedRover = aRover.receivedCommand(Command.RIGHT)
+        assertEquals(movedRover.direction, Direction.EAST)
+    }
+
+    @Test
+    fun aRoverFacingSouthShouldFaceWestWhenRotatingRight() {
+        val aRover = Rover(direction = Direction.SOUTH)
+        val movedRover = aRover.receivedCommand(Command.RIGHT)
+        assertEquals(movedRover.direction, Direction.WEST)
+    }
+
+    @Test
+    fun aRoverFacingEastShouldFaceSouthWhenRotatingRight() {
+        val aRover = Rover(direction = Direction.EAST)
+        val movedRover = aRover.receivedCommand(Command.RIGHT)
+        assertEquals(movedRover.direction, Direction.SOUTH)
+    }
+
+    @Test
+    fun aRoverFacingWestShouldFaceNorthWhenRotatingRight() {
+        val aRover = Rover(direction = Direction.WEST)
+        val movedRover = aRover.receivedCommand(Command.RIGHT)
+        assertEquals(movedRover.direction, Direction.NORTH)
+    }
+
+    @Test
+    fun aRoverFacingNorthShouldFaceWestWhenRotatingLeft() {
+        val aRover = Rover(direction = Direction.NORTH)
+        val movedRover = aRover.receivedCommand(Command.LEFT)
+        assertEquals(movedRover.direction, Direction.WEST)
+    }
+
+    @Test
+    fun aRoverFacingSouthShouldFaceEastWhenRotatingLeft() {
+        val aRover = Rover(direction = Direction.SOUTH)
+        val movedRover = aRover.receivedCommand(Command.LEFT)
+        assertEquals(movedRover.direction, Direction.EAST)
+    }
+
+    @Test
+    fun aRoverFacingEastShouldFaceNorthWhenRotatingLeft() {
+        val aRover = Rover(direction = Direction.EAST)
+        val movedRover = aRover.receivedCommand(Command.LEFT)
+        assertEquals(movedRover.direction, Direction.NORTH)
+    }
+
+    @Test
+    fun aRoverFacingWestShouldFaceSouthWhenRotatingLeft() {
+        val aRover = Rover(direction = Direction.WEST)
+        val movedRover = aRover.receivedCommand(Command.LEFT)
+        assertEquals(movedRover.direction, Direction.SOUTH)
+    }
 }

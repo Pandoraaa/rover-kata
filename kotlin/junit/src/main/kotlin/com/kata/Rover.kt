@@ -5,19 +5,45 @@ data class Rover(
     val position: Position = Position(0,0)
 ) {
     fun receivedCommand(command: Command): Rover {
-        return Rover(direction, move(command))
+        return Rover(rotate(command), move(command))
     }
+
 
     private fun move(command: Command): Position {
         val modifier = when (command) {
             Command.FORWARDS -> 1
             Command.BACKWARDS -> -1
+            else -> 0
         }
         return when (direction) {
-            Direction.NORTH -> Position(0, (position.y + 1 * modifier))
-            Direction.SOUTH -> Position(0, (position.y - 1 * modifier))
-            Direction.EAST -> Position((position.x + 1 * modifier), 0)
-            Direction.WEST -> Position((position.x - 1 * modifier), 0)
+            Direction.NORTH -> Position(position.x, (position.y + 1 * modifier))
+            Direction.SOUTH -> Position(position.x, (position.y - 1 * modifier))
+            Direction.EAST -> Position((position.x + 1 * modifier), position.y)
+            Direction.WEST -> Position((position.x - 1 * modifier), position.y)
+        }
+    }
+
+    private fun rotate(command: Command): Direction {
+        return when (command) {
+            Command.RIGHT -> when (direction) {
+                Direction.NORTH -> Direction.EAST
+                Direction.SOUTH -> Direction.WEST
+                Direction.EAST -> Direction.SOUTH
+                Direction.WEST -> Direction.NORTH
+            }
+            Command.LEFT-> when (direction) {
+                Direction.NORTH -> Direction.WEST
+                Direction.SOUTH -> Direction.EAST
+                Direction.EAST -> Direction.NORTH
+                Direction.WEST -> Direction.SOUTH
+            }
+
+            else -> when (direction) {
+                Direction.NORTH -> Direction.NORTH
+                Direction.SOUTH -> Direction.SOUTH
+                Direction.EAST -> Direction.EAST
+                Direction.WEST -> Direction.WEST
+            }
         }
     }
 }
@@ -31,5 +57,11 @@ enum class Direction {
 
 enum class Command {
     FORWARDS,
-    BACKWARDS
+    BACKWARDS,
+    LEFT,
+    RIGHT
+}
+
+enum class Rotate {
+
 }
