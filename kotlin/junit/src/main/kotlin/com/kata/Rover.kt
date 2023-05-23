@@ -28,27 +28,30 @@ data class Rover(
 
     private fun rotate(command: Command): Direction {
         return when (command) {
-            Command.RIGHT -> when (direction) {
-                Direction.NORTH -> Direction.EAST
-                Direction.SOUTH -> Direction.WEST
-                Direction.EAST -> Direction.SOUTH
-                Direction.WEST -> Direction.NORTH
-            }
-
-            Command.LEFT -> when (direction) {
-                Direction.NORTH -> Direction.WEST
-                Direction.SOUTH -> Direction.EAST
-                Direction.EAST -> Direction.NORTH
-                Direction.WEST -> Direction.SOUTH
-            }
-
-            else -> when (direction) {
-                Direction.NORTH -> Direction.NORTH
-                Direction.SOUTH -> Direction.SOUTH
-                Direction.EAST -> Direction.EAST
-                Direction.WEST -> Direction.WEST
-            }
+            Command.RIGHT -> rotateClockWise()
+            Command.LEFT -> rotateCounterClockWise()
+            else -> doNotRotate()
         }
+    }
+    private fun rotateClockWise() = when (direction) {
+        Direction.NORTH -> Direction.EAST
+        Direction.SOUTH -> Direction.WEST
+        Direction.EAST -> Direction.SOUTH
+        Direction.WEST -> Direction.NORTH
+    }
+
+    private fun rotateCounterClockWise() = when (direction) {
+        Direction.NORTH -> Direction.WEST
+        Direction.SOUTH -> Direction.EAST
+        Direction.EAST -> Direction.NORTH
+        Direction.WEST -> Direction.SOUTH
+    }
+
+    private fun doNotRotate() = when (direction) {
+        Direction.NORTH -> Direction.NORTH
+        Direction.SOUTH -> Direction.SOUTH
+        Direction.EAST -> Direction.EAST
+        Direction.WEST -> Direction.WEST
     }
 }
 
