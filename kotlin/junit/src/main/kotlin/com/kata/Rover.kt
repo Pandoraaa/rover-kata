@@ -2,12 +2,15 @@ package com.kata
 
 data class Rover(
     val direction: Direction = Direction.NORTH,
-    val position: Position = Position(0,0)
+    val position: Position = Position(0, 0)
 ) {
     fun receivedCommand(command: Command): Rover {
         return Rover(rotate(command), move(command))
     }
 
+    fun receivedCommands(commands: List<Command>): Rover {
+        return commands.fold(this, Rover::receivedCommand)
+    }
 
     private fun move(command: Command): Position {
         val modifier = when (command) {
@@ -31,7 +34,8 @@ data class Rover(
                 Direction.EAST -> Direction.SOUTH
                 Direction.WEST -> Direction.NORTH
             }
-            Command.LEFT-> when (direction) {
+
+            Command.LEFT -> when (direction) {
                 Direction.NORTH -> Direction.WEST
                 Direction.SOUTH -> Direction.EAST
                 Direction.EAST -> Direction.NORTH

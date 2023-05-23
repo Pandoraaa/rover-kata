@@ -14,135 +14,159 @@ class RoverTest {
     @Test
     fun aDefaultRoverShouldBeAtPosition00() {
         val defaultRover = Rover()
-        assertEquals(defaultRover.position, Position(0,0))
+        assertEquals(defaultRover.position, Position(0, 0))
     }
 
     @Test
     fun aRoverFacingNorthShouldMove1PositionNorthWhenMovingForwards() {
         val aRover = Rover(direction = Direction.NORTH)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(0,1))
+        assertEquals(movedRover.position, Position(0, 1))
     }
 
     @Test
     fun aRoverFacingSouthShouldMove1PositionSouthWhenMovingForwards() {
         val aRover = Rover(direction = Direction.SOUTH)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(0,-1))
+        assertEquals(movedRover.position, Position(0, -1))
     }
 
     @Test
     fun aRoverFacingEastShouldMove1PositionEastWhenMovingForwards() {
         val aRover = Rover(direction = Direction.EAST)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(1,0))
+        assertEquals(movedRover.position, Position(1, 0))
     }
 
     @Test
     fun aRoverFacingWestShouldMove1PositionWestWhenMovingForwards() {
         val aRover = Rover(direction = Direction.WEST)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(-1,0))
+        assertEquals(movedRover.position, Position(-1, 0))
     }
 
     @Test
     fun aRoverFacingNorthShouldMove2PositionsNorthWhenMovingForwardsTwice() {
         val aRover = Rover(direction = Direction.NORTH)
-        val movedRover = aRover
-            .receivedCommand(Command.FORWARDS)
-            .receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(0,2))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.FORWARDS,
+                Command.FORWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(0, 2))
     }
 
     @Test
     fun aRoverFacingSouthShouldMove2PositionsSouthWhenMovingForwardsTwice() {
         val aRover = Rover(direction = Direction.SOUTH)
-        val movedRover = aRover
-            .receivedCommand(Command.FORWARDS)
-            .receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(0,-2))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.FORWARDS,
+                Command.FORWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(0, -2))
     }
 
     @Test
     fun aRoverFacingEastShouldMove2PositionsEastWhenMovingForwardsTwice() {
         val aRover = Rover(direction = Direction.EAST)
-        val movedRover = aRover
-            .receivedCommand(Command.FORWARDS)
-            .receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(2,0))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.FORWARDS,
+                Command.FORWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(2, 0))
     }
 
     @Test
     fun aRoverFacingWestShouldMove2PositionsWestWhenMovingForwardsTwice() {
         val aRover = Rover(direction = Direction.WEST)
-        val movedRover = aRover
-            .receivedCommand(Command.FORWARDS)
-            .receivedCommand(Command.FORWARDS)
-        assertEquals(movedRover.position, Position(-2,0))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.FORWARDS,
+                Command.FORWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(-2, 0))
     }
 
     @Test
     fun aRoverFacingNorthShouldMove1PositionSouthWhenMovingBackwards() {
         val aRover = Rover(direction = Direction.NORTH)
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(0,-1))
+        assertEquals(movedRover.position, Position(0, -1))
     }
 
     @Test
     fun aRoverFacingSouthShouldMove1PositionNorthWhenMovingBackwards() {
         val aRover = Rover(direction = Direction.SOUTH)
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(0,1))
+        assertEquals(movedRover.position, Position(0, 1))
     }
 
     @Test
     fun aRoverFacingEastShouldMove1PositionWestWhenMovingBackwards() {
         val aRover = Rover(direction = Direction.EAST)
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(-1,0))
+        assertEquals(movedRover.position, Position(-1, 0))
     }
 
     @Test
     fun aRoverFacingWestShouldMove1PositionEastWhenMovingBackwards() {
         val aRover = Rover(direction = Direction.WEST)
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(1,0))
+        assertEquals(movedRover.position, Position(1, 0))
     }
 
     @Test
     fun aRoverFacingNorthShouldMove2PositionsSouthWhenMovingBackwardsTwice() {
         val aRover = Rover(direction = Direction.NORTH)
-        val movedRover = aRover
-            .receivedCommand(Command.BACKWARDS)
-            .receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(0,-2))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.BACKWARDS,
+                Command.BACKWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(0, -2))
     }
 
     @Test
     fun aRoverFacingSouthShouldMove2PositionsNorthWhenMovingBackwardsTwice() {
         val aRover = Rover(direction = Direction.SOUTH)
-        val movedRover = aRover
-            .receivedCommand(Command.BACKWARDS)
-            .receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(0,2))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.BACKWARDS,
+                Command.BACKWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(0, 2))
     }
 
     @Test
     fun aRoverFacingEastShouldMove2PositionsWestWhenMovingBackwardsTwice() {
         val aRover = Rover(direction = Direction.EAST)
-        val movedRover = aRover
-            .receivedCommand(Command.BACKWARDS)
-            .receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(-2,0))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.BACKWARDS,
+                Command.BACKWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(-2, 0))
     }
 
     @Test
     fun aRoverFacingWestShouldMove2PositionsEastWhenMovingBackwardsTwice() {
         val aRover = Rover(direction = Direction.WEST)
-        val movedRover = aRover
-            .receivedCommand(Command.BACKWARDS)
-            .receivedCommand(Command.BACKWARDS)
-        assertEquals(movedRover.position, Position(2,0))
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.BACKWARDS,
+                Command.BACKWARDS
+            )
+        )
+        assertEquals(movedRover.position, Position(2, 0))
     }
 
     @Test
@@ -204,9 +228,12 @@ class RoverTest {
     @Test
     fun aRoverFacingNorthShouldFaceSouthWhenRotatingRightTwice() {
         val aRover = Rover(direction = Direction.NORTH)
-        val movedRover = aRover
-            .receivedCommand(Command.RIGHT)
-            .receivedCommand(Command.RIGHT)
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.RIGHT,
+                Command.RIGHT
+            )
+        )
         assertEquals(movedRover.direction, Direction.SOUTH)
     }
 
@@ -214,10 +241,14 @@ class RoverTest {
     fun aRoverFacingNorthShouldFaceBackToNorthWhenRotatingRight4times() {
         val aRover = Rover(direction = Direction.NORTH)
         val movedRover = aRover
-            .receivedCommand(Command.RIGHT)
-            .receivedCommand(Command.RIGHT)
-            .receivedCommand(Command.RIGHT)
-            .receivedCommand(Command.RIGHT)
+            .receivedCommands(
+                listOf(
+                    Command.RIGHT,
+                    Command.RIGHT,
+                    Command.RIGHT,
+                    Command.RIGHT
+                )
+            )
         assertEquals(movedRover.direction, Direction.NORTH)
     }
 
@@ -225,8 +256,12 @@ class RoverTest {
     fun aRoverFacingNorthShouldFaceSouthWhenRotatingLeftTwice() {
         val aRover = Rover(direction = Direction.NORTH)
         val movedRover = aRover
-            .receivedCommand(Command.LEFT)
-            .receivedCommand(Command.LEFT)
+            .receivedCommands(
+                listOf(
+                    Command.LEFT,
+                    Command.LEFT
+                )
+            )
         assertEquals(movedRover.direction, Direction.SOUTH)
     }
 
@@ -234,10 +269,51 @@ class RoverTest {
     fun aRoverFacingNorthShouldFaceBackToNorthWhenRotatingLeft4times() {
         val aRover = Rover(direction = Direction.NORTH)
         val movedRover = aRover
-            .receivedCommand(Command.LEFT)
-            .receivedCommand(Command.LEFT)
-            .receivedCommand(Command.LEFT)
-            .receivedCommand(Command.LEFT)
+            .receivedCommands(
+                listOf(
+                    Command.LEFT,
+                    Command.LEFT,
+                    Command.LEFT,
+                    Command.LEFT
+                )
+            )
         assertEquals(movedRover.direction, Direction.NORTH)
+    }
+
+    @Test
+    fun aRoverFacingNorthShouldFaceWestAndBeAtPositionMinus1Minus1WhenReceivingAListOfLeftForwardsForwardsLeftForwardsRightBackwardsCommands() {
+        val aRover = Rover(direction = Direction.NORTH)
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.LEFT,
+                Command.FORWARDS,
+                Command.FORWARDS,
+                Command.LEFT,
+                Command.FORWARDS,
+                Command.RIGHT,
+                Command.BACKWARDS
+            )
+        )
+        assertEquals(movedRover.direction, Direction.WEST)
+        assertEquals(movedRover.position, Position(-1, -1))
+    }
+
+    @Test
+    fun aRoverFacingNorthShouldReturnAtItsPositionWhenReceivingAListOfRightForwardsCommands4Times() {
+        val aRover = Rover(direction = Direction.NORTH)
+        val movedRover = aRover.receivedCommands(
+            listOf(
+                Command.RIGHT,
+                Command.FORWARDS,
+                Command.RIGHT,
+                Command.FORWARDS,
+                Command.RIGHT,
+                Command.FORWARDS,
+                Command.RIGHT,
+                Command.FORWARDS
+            )
+        )
+        assertEquals(movedRover.direction, Direction.NORTH)
+        assertEquals(movedRover.position, Position(0, 0))
     }
 }
