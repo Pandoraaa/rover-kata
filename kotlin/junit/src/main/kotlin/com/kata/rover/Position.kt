@@ -1,4 +1,4 @@
-package com.kata
+package com.kata.rover
 
 data class Position(
     val x: Int,

@@ -1,8 +1,11 @@
-package com.kata
+package com.kata.rover
+
+import com.kata.planet.Planet
 
 data class Rover(
     val direction: Direction = Direction.NORTH,
-    val position: Position = Position(0, 0)
+    val position: Position = Position(0, 0),
+    val planet: Planet = Planet.mars()
 ) {
     fun receivedCommand(command: Command): Rover {
         return Rover(rotate(command), move(command))
