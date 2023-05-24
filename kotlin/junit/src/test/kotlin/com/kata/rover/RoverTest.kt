@@ -418,4 +418,40 @@ class RoverTest {
         assertEquals(movedRover.position, Position(0,2))
         assertEquals(movedRover.message, "beep boop there is an obstacle at (0,2), ignoring other commands")
     }
+
+    @Test
+    fun aRoverShouldReportAnObstacleBehindItMovingBackwards() {
+        val obstacles = listOf(Position(0,-1))
+        val mars = Planet.mars(obstacles)
+        val aRover = Rover(planet = mars)
+        val movedRover = aRover.receivedCommand(Command.BACKWARDS)
+        assertEquals(movedRover.message, "beep boop there is an obstacle at (0,-1), ignoring other commands")
+    }
+
+    @Test
+    fun aRoverShouldNotReportAnObstacleWhenRotatingLeft() {
+        val obstacles = listOf(Position(0,-1))
+        val mars = Planet.mars(obstacles)
+        val aRover = Rover(planet = mars)
+        val movedRover = aRover.receivedCommand(Command.LEFT)
+        assertNull(movedRover.message)
+    }
+
+    @Test
+    fun aRoverShouldNotReportAnObstacleBehindItMovingForwards() {
+        val obstacles = listOf(Position(0,-1))
+        val mars = Planet.mars(obstacles)
+        val aRover = Rover(planet = mars)
+        val movedRover = aRover.receivedCommand(Command.FORWARDS)
+        assertNull(movedRover.message)
+    }
+
+    @Test
+    fun aRoverShouldNotReportAnObstacleInFrontOfItMovingBackwards() {
+        val obstacles = listOf(Position(0,1))
+        val mars = Planet.mars(obstacles)
+        val aRover = Rover(planet = mars)
+        val movedRover = aRover.receivedCommand(Command.BACKWARDS)
+        assertNull(movedRover.message)
+    }
 }
