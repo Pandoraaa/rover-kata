@@ -336,8 +336,24 @@ class RoverTest {
     @Test
     fun aRoverOnThePlanetsBottomEdgeMovingSouthShouldBeAtThePlanetsTopEdge() {
         val venus = Planet(Dimension(3,3))
-        val aRover = Rover(direction = Direction.NORTH, position = Position(0,-1), planet = venus)
+        val aRover = Rover(direction = Direction.SOUTH, position = Position(0,-1), planet = venus)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
+        assertEquals(movedRover.position, Position(0,1))
+    }
+
+    @Test
+    fun aRoverOnThePlanetsTopEdgeMovingSouthShouldBeAtThePlanetsBottomEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.SOUTH, position = Position(0,1), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.BACKWARDS)
+        assertEquals(movedRover.position, Position(0,-1))
+    }
+
+    @Test
+    fun aRoverOnThePlanetsBottomEdgeMovingNorthShouldBeAtThePlanetsTopEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.NORTH, position = Position(0,-1), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.BACKWARDS)
         assertEquals(movedRover.position, Position(0,1))
     }
 }
