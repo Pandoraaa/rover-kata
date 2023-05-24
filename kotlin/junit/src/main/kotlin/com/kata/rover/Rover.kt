@@ -21,12 +21,17 @@ data class Rover(
             Command.BACKWARDS -> -1
             else -> 0
         }
-        return when (direction) {
+        val newPosition = when (direction) {
             Direction.NORTH -> Position(position.x, (position.y + 1 * modifier))
             Direction.SOUTH -> Position(position.x, (position.y - 1 * modifier))
             Direction.EAST -> Position((position.x + 1 * modifier), position.y)
             Direction.WEST -> Position((position.x - 1 * modifier), position.y)
         }
+
+        return if (planet.isAnEdge(position)){
+            Position(position.x, position.y * -1)
+        } else
+            newPosition
     }
 
     private fun rotate(command: Command): Direction {
