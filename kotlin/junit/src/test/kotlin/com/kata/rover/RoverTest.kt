@@ -1,5 +1,6 @@
 package com.kata.rover
 
+import com.kata.planet.Dimension
 import com.kata.planet.Planet
 import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.*
@@ -322,5 +323,13 @@ class RoverTest {
     fun aDefaultRoverShouldBeOnPlanetMars() {
         val defaultRover = Rover()
         assertEquals(defaultRover.planet, Planet.mars())
+    }
+
+    @Test
+    fun aRoverOnThePlanetsTopEdgeMovingNorthShouldBeAtThePlanetsBottomEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.NORTH, position = Position(0,1), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.FORWARDS)
+        assertEquals(movedRover.position, Position(0,-1))
     }
 }
