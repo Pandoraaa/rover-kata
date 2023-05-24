@@ -388,4 +388,34 @@ class RoverTest {
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
         assertEquals(movedRover.position, Position(-1,0))
     }
+
+    @Test
+    fun aDefaultRoverShouldBeOnMarsWithoutAnyObstacles() {
+        val defaultRover = Rover()
+        assertEquals(defaultRover.planet, Planet.mars())
+    }
+
+    @Test
+    fun aRoverShouldReportAnObstacleInFrontOfIt() {
+        val obstacles = listOf(Position(0,1))
+        val mars = Planet.mars(obstacles)
+        val aRover = Rover(planet = mars)
+        val movedRover = aRover.receivedCommand(Command.FORWARDS)
+        assertEquals(movedRover.message, "beep boop there is an obstacle at (0,1), ignoring other commands")
+    }
+
+    @Test
+    fun aDefaultRoverReceivesAListOfCommandsWithTheSecondOneThatIsAnObstacle() {
+        val obstacles = listOf(Position(0,2))
+        val mars = Planet.mars(obstacles)
+        val aDefaultRover = Rover(planet = mars)
+        val movedRover = aDefaultRover.receivedCommands(listOf(
+            Command.FORWARDS,
+            Command.FORWARDS,
+            Command.FORWARDS,
+            Command.FORWARDS,
+        ))
+        assertEquals(movedRover.position, Position(0,2))
+        assertEquals(movedRover.message, "beep boop there is an obstacle, ignoring other commands")
+    }
 }

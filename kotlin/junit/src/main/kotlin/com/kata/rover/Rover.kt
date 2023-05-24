@@ -5,17 +5,20 @@ import com.kata.planet.Planet
 data class Rover(
     val direction: Direction = Direction.NORTH,
     val position: Position = Position(0, 0),
-    val planet: Planet = Planet.mars()
+    val planet: Planet = Planet.mars(),
+    val message: String? = null
 ) {
+
+
     fun receivedCommand(command: Command): Rover {
-        return Rover(rotate(command), move(command))
+        return Rover(rotate(command), move(command).position)
     }
 
     fun receivedCommands(commands: List<Command>): Rover {
         return commands.fold(this, Rover::receivedCommand)
     }
 
-    private fun move(command: Command): Position {
+    private fun move(command: Command): Rover {
         val modifier = when (command) {
             Command.FORWARDS -> 1
             Command.BACKWARDS -> -1
@@ -28,10 +31,21 @@ data class Rover(
             Direction.WEST -> Position((position.x - 1 * modifier), position.y)
         }
 
-        return if (planet.isAnEdge(position)) {
+        val position = if (planet.isAnEdge(position)) {
             wrappedPosition()
         } else
             newPosition
+
+        val message = checkForObstacleAt(position)
+
+        return Rover(direction, position, planet, message)
+    }
+
+    private fun checkForObstacleAt(position: Position): String? {
+        if (planet.hasObstacleAt(position)) {
+            return "beep boop there is an obstacle at (${position.x},${position.y}), ignoring other commands"
+        }
+        return null
     }
 
     private fun wrappedPosition() =
@@ -82,8 +96,4 @@ enum class Command {
     BACKWARDS,
     LEFT,
     RIGHT
-}
-
-enum class Rotate {
-
 }
