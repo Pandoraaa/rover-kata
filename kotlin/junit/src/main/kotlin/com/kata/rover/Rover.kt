@@ -28,11 +28,17 @@ data class Rover(
             Direction.WEST -> Position((position.x - 1 * modifier), position.y)
         }
 
-        return if (planet.isAnEdge(position)){
-            Position(position.x, position.y * -1)
+        return if (planet.isAnEdge(position)) {
+            wrappedPosition()
         } else
             newPosition
     }
+
+    private fun wrappedPosition() =
+        if (direction === Direction.NORTH || direction === Direction.SOUTH) {
+            Position(position.x, position.y * -1)
+        } else
+            Position(position.x * -1, position.y)
 
     private fun rotate(command: Command): Direction {
         return when (command) {
@@ -41,6 +47,7 @@ data class Rover(
             else -> doNotRotate()
         }
     }
+
     private fun rotateClockWise() = when (direction) {
         Direction.NORTH -> Direction.EAST
         Direction.SOUTH -> Direction.WEST

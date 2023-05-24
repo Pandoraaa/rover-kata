@@ -326,7 +326,7 @@ class RoverTest {
     }
 
     @Test
-    fun aRoverOnThePlanetsTopEdgeMovingNorthShouldBeAtThePlanetsBottomEdge() {
+    fun aRoverOnThePlanetsTopEdgeMovingForwardsNorthShouldBeAtThePlanetsBottomEdge() {
         val venus = Planet(Dimension(3,3))
         val aRover = Rover(direction = Direction.NORTH, position = Position(0,1), planet = venus)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
@@ -334,7 +334,7 @@ class RoverTest {
     }
 
     @Test
-    fun aRoverOnThePlanetsBottomEdgeMovingSouthShouldBeAtThePlanetsTopEdge() {
+    fun aRoverOnThePlanetsBottomEdgeMovingForwardsSouthShouldBeAtThePlanetsTopEdge() {
         val venus = Planet(Dimension(3,3))
         val aRover = Rover(direction = Direction.SOUTH, position = Position(0,-1), planet = venus)
         val movedRover = aRover.receivedCommand(Command.FORWARDS)
@@ -342,7 +342,7 @@ class RoverTest {
     }
 
     @Test
-    fun aRoverOnThePlanetsTopEdgeMovingSouthShouldBeAtThePlanetsBottomEdge() {
+    fun aRoverOnThePlanetsTopEdgeMovingBackwardsSouthShouldBeAtThePlanetsBottomEdge() {
         val venus = Planet(Dimension(3,3))
         val aRover = Rover(direction = Direction.SOUTH, position = Position(0,1), planet = venus)
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
@@ -350,10 +350,42 @@ class RoverTest {
     }
 
     @Test
-    fun aRoverOnThePlanetsBottomEdgeMovingNorthShouldBeAtThePlanetsTopEdge() {
+    fun aRoverOnThePlanetsBottomEdgeMovingBackwardsNorthShouldBeAtThePlanetsTopEdge() {
         val venus = Planet(Dimension(3,3))
         val aRover = Rover(direction = Direction.NORTH, position = Position(0,-1), planet = venus)
         val movedRover = aRover.receivedCommand(Command.BACKWARDS)
         assertEquals(movedRover.position, Position(0,1))
+    }
+
+    @Test
+    fun aRoverOnThePlanetsRightEdgeMovingForwardsEastShouldBeAtThePlanetsLeftEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.EAST, position = Position(-1,0), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.FORWARDS)
+        assertEquals(movedRover.position, Position(1,0))
+    }
+
+    @Test
+    fun aRoverOnThePlanetsLeftEdgeMovingForwardsWestShouldBeAtThePlanetsRightEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.WEST, position = Position(1,0), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.FORWARDS)
+        assertEquals(movedRover.position, Position(-1,0))
+    }
+
+    @Test
+    fun aRoverOnThePlanetsRightEdgeMovingBackwardsEastShouldBeAtThePlanetsLeftEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.WEST, position = Position(-1,0), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.BACKWARDS)
+        assertEquals(movedRover.position, Position(1,0))
+    }
+
+    @Test
+    fun aRoverOnThePlanetsLeftEdgeMovingBackwardsWestShouldBeAtThePlanetsRightEdge() {
+        val venus = Planet(Dimension(3,3))
+        val aRover = Rover(direction = Direction.EAST, position = Position(1,0), planet = venus)
+        val movedRover = aRover.receivedCommand(Command.BACKWARDS)
+        assertEquals(movedRover.position, Position(-1,0))
     }
 }
