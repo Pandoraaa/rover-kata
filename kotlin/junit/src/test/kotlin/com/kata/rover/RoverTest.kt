@@ -416,6 +416,6 @@ class RoverTest {
             Command.FORWARDS,
         ))
         assertEquals(movedRover.position, Position(0,2))
-        assertEquals(movedRover.message, "beep boop there is an obstacle, ignoring other commands")
+        assertEquals(movedRover.message, "beep boop there is an obstacle at (0,2), ignoring other commands")
     }
 }

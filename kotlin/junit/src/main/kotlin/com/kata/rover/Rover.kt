@@ -9,9 +9,8 @@ data class Rover(
     val message: String? = null
 ) {
 
-
     fun receivedCommand(command: Command): Rover {
-        return Rover(rotate(command), move(command).position)
+        return Rover(rotate(command), move(command).position, planet, move(command).message)
     }
 
     fun receivedCommands(commands: List<Command>): Rover {
