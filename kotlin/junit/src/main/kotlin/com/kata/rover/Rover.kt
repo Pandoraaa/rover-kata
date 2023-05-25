@@ -9,7 +9,10 @@ data class Rover(
 ) {
 
     fun receivedCommand(command: Command): Rover {
-        return Rover(rotate(command), move(command).position, planet)
+        if (command == Command.FORWARDS || command == Command.BACKWARDS) {
+            return Rover(direction, move(command).position, planet)
+        }
+        return Rover(rotate(command), position, planet)
     }
 
     fun receivedCommands(commands: List<Command>): Rover {
@@ -34,12 +37,12 @@ data class Rover(
         } else
             newPosition
 
-        val message = checkForObstacleAt(position)
+        lookForObstacleAtPosition(position)
 
         return Rover(direction, position, planet)
     }
 
-    private fun checkForObstacleAt(position: Position): Exception? {
+    private fun lookForObstacleAtPosition(position: Position): Exception? {
         if (planet.hasObstacleAt(position)) {
             throw ObstacleException("beep boop there is an obstacle at (${position.x},${position.y}), ignoring other commands")
         }

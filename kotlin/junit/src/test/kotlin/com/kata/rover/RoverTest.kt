@@ -283,7 +283,7 @@ class RoverTest {
     }
 
     @Test
-    fun aRoverFacingNorthShouldFaceWestAndBeAtPositionMinus1Minus1WhenReceivingAListOfLeftForwardsForwardsLeftForwardsRightBackwardsCommands() {
+    fun aRoverFacingNorthShouldFaceWestAndBeAtPosition2_0WhenReceivingAListOfLeftForwardsForwardsLeftForwardsRightBackwardsCommands() {
         val aRover = Rover(direction = Direction.NORTH)
         val movedRover = aRover.receivedCommands(
             listOf(
@@ -297,7 +297,7 @@ class RoverTest {
             )
         )
         assertEquals(movedRover.direction, Direction.WEST)
-        assertEquals(movedRover.position, Position(-2, 0))
+        assertEquals(movedRover.position, Position(2, 0))
     }
 
     @Test
