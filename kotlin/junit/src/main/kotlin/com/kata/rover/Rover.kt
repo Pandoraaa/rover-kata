@@ -5,12 +5,11 @@ import com.kata.planet.Planet
 data class Rover(
     val direction: Direction = Direction.NORTH,
     val position: Position = Position(0, 0),
-    val planet: Planet = Planet.mars(),
-    val message: String? = null
+    val planet: Planet = Planet.mars()
 ) {
 
     fun receivedCommand(command: Command): Rover {
-        return Rover(rotate(command), move(command).position, planet, move(command).message)
+        return Rover(rotate(command), move(command).position, planet)
     }
 
     fun receivedCommands(commands: List<Command>): Rover {
@@ -37,12 +36,12 @@ data class Rover(
 
         val message = checkForObstacleAt(position)
 
-        return Rover(direction, position, planet, message)
+        return Rover(direction, position, planet)
     }
 
-    private fun checkForObstacleAt(position: Position): String? {
+    private fun checkForObstacleAt(position: Position): Exception? {
         if (planet.hasObstacleAt(position)) {
-            return "beep boop there is an obstacle at (${position.x},${position.y}), ignoring other commands"
+            throw ObstacleException("beep boop there is an obstacle at (${position.x},${position.y}), ignoring other commands")
         }
         return null
     }
@@ -75,12 +74,7 @@ data class Rover(
         Direction.WEST -> Direction.SOUTH
     }
 
-    private fun doNotRotate() = when (direction) {
-        Direction.NORTH -> Direction.NORTH
-        Direction.SOUTH -> Direction.SOUTH
-        Direction.EAST -> Direction.EAST
-        Direction.WEST -> Direction.WEST
-    }
+    private fun doNotRotate() = direction
 }
 
 enum class Direction {
