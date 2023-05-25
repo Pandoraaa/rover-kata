@@ -400,9 +400,10 @@ class RoverTest {
         val obstacles = listOf(Position(0, 1))
         val mars = Planet.mars(obstacles)
         val aRover = Rover(planet = mars)
-        assertThrows<ObstacleException> {
+        val exception = assertThrows<ObstacleException> {
             aRover.receivedCommand(Command.FORWARDS)
         }
+        assertEquals("beep boop there is an obstacle at (0,1), ignoring other commands", exception.message)
     }
 
     @Test
@@ -410,7 +411,7 @@ class RoverTest {
         val obstacles = listOf(Position(0, 2))
         val mars = Planet.mars(obstacles)
         val aDefaultRover = Rover(planet = mars)
-        assertThrows<ObstacleException> {
+        val exception = assertThrows<ObstacleException> {
             aDefaultRover.receivedCommands(
                 listOf(
                     Command.FORWARDS,
@@ -420,6 +421,7 @@ class RoverTest {
                 )
             )
         }
+        assertEquals("beep boop there is an obstacle at (0,2), ignoring other commands", exception.message)
     }
 
     @Test
@@ -427,7 +429,8 @@ class RoverTest {
         val obstacles = listOf(Position(0, -1))
         val mars = Planet.mars(obstacles)
         val aRover = Rover(planet = mars)
-        assertThrows<ObstacleException> { aRover.receivedCommand(Command.BACKWARDS) }
+        val exception = assertThrows<ObstacleException> { aRover.receivedCommand(Command.BACKWARDS) }
+        assertEquals("beep boop there is an obstacle at (0,-1), ignoring other commands", exception.message)
     }
 
     @Test

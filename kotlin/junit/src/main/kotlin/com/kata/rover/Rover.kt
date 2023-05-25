@@ -42,9 +42,10 @@ data class Rover(
         return Rover(direction, position, planet)
     }
 
+    @Throws(ObstacleException::class)
     private fun lookForObstacleAtPosition(position: Position): ObstacleException? {
         if (planet.hasObstacleAt(position)) {
-            throw ObstacleException("beep boop there is an obstacle at (${position.x},${position.y}), ignoring other commands")
+            throw ObstacleException(position)
         }
         return null
     }
