@@ -8,23 +8,16 @@ data class Rover(
     val planet: Planet = Planet.mars()
 ) {
 
-    fun receivedCommand(command: Command): Rover {
+    fun receivedCommand(command: Command): Rover =
         if (command == Command.FORWARDS || command == Command.BACKWARDS) {
-            return Rover(direction, move(command).position, planet)
-        }
-        return Rover(rotate(command), position, planet)
-    }
+            Rover(direction, move(command).position, planet)
+        } else Rover(rotate(command), position, planet)
 
-    fun receivedCommands(commands: List<Command>): Rover {
-        return commands.fold(this, Rover::receivedCommand)
-    }
+    fun receivedCommands(commands: List<Command>): Rover =
+        commands.fold(this, Rover::receivedCommand)
 
     private fun move(command: Command): Rover {
-        val modifier = when (command) {
-            Command.FORWARDS -> 1
-            Command.BACKWARDS -> -1
-            else -> 0
-        }
+        val modifier = if (command === Command.FORWARDS) 1 else -1
         val newPosition = when (direction) {
             Direction.NORTH -> Position(position.x, (position.y + 1 * modifier))
             Direction.SOUTH -> Position(position.x, (position.y - 1 * modifier))
@@ -56,13 +49,9 @@ data class Rover(
         } else
             Position(position.x * -1, position.y)
 
-    private fun rotate(command: Command): Direction {
-        return when (command) {
-            Command.RIGHT -> rotateClockWise()
-            Command.LEFT -> rotateCounterClockWise()
-            else -> doNotRotate()
-        }
-    }
+    private fun rotate(command: Command): Direction =
+        if (command === Command.RIGHT) rotateClockWise() else rotateCounterClockWise()
+
 
     private fun rotateClockWise() = when (direction) {
         Direction.NORTH -> Direction.EAST
@@ -77,8 +66,6 @@ data class Rover(
         Direction.EAST -> Direction.NORTH
         Direction.WEST -> Direction.SOUTH
     }
-
-    private fun doNotRotate() = direction
 }
 
 enum class Direction {
